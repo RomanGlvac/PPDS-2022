@@ -6,6 +6,7 @@ from shared import Shared
 
 
 def increment_elms(shared):
+    """ Increment elements in shared.elms at index shared.counter. """
     while shared.counter < shared.end:
         mutex.lock()
         shared.elms[shared.counter] += 1
