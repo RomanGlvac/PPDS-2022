@@ -7,9 +7,9 @@ License:        MIT
 """
 
 
+from random import randint
 from time import sleep
 from fei.ppds import Thread
-from reusable_barrier.barriertest import get_sleep_interval
 from orderedbarrier import OrderedBarrier
 
 
@@ -21,7 +21,7 @@ def compute_fibonacci(b, thread_id):
     :param thread_id: id of thread running this function
     :return: None
     """
-    sleep(get_sleep_interval())
+    sleep(randint(1, 10) / 10)
     b.wait(thread_id)
     fib_seq[thread_id + 2] = fib_seq[thread_id] + fib_seq[thread_id + 1]
 

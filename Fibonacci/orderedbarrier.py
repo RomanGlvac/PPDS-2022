@@ -34,7 +34,6 @@ class OrderedBarrier:
         # adt = Semaphore(0)
         self.thread_dict[thread_id] = adt
         self.C += 1
-        self.mutex.unlock()
 
         # releasing last thread
         if self.C == self.N:
@@ -42,7 +41,9 @@ class OrderedBarrier:
             self.release_counter += 1
             release_first.signal()
 
+        self.mutex.unlock()
         adt.wait()
+
 
         self.mutex.lock()
         if self.release_counter != self.N:
