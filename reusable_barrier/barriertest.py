@@ -21,6 +21,28 @@ def get_sleep_interval():
     return randint(1, 10) / 10
 
 
+def rendezvous(thread_name):
+    """Simulating a rendezvous point for threads.
+    Prints id of currently running thread.
+
+    :param thread_name: id of thread running function
+    :return: None
+    """
+    sleep(get_sleep_interval())
+    print('rendezvous: %s' % thread_name)
+
+
+def ko(thread_name):
+    """Simulating a rendezvous point for threads, same as rendezvous().
+    Prints id of currently running thread.
+
+    :param thread_name: id of thread running function
+    :return: None
+    """
+    print('ko: %s' % thread_name)
+    sleep(get_sleep_interval())
+
+
 def barrier_example(barrier, thread_id):
     """Function used for testing the synchronization pattern barrier
 
@@ -34,19 +56,18 @@ def barrier_example(barrier, thread_id):
     print("Thread number %d after barrier" % thread_id)
 
 
-def barrier_cycle_example(b1, b2, thread_id):
+def barrier_cycle_example(b1, thread_id):
     """Test synchronization pattern barrier in an infinite while loop
 
     :param b1: instance of barrier
-    :param b2: instance of barrier
     :param thread_id: id of thread
     :return: None
     """
     while True:
-        before_barrier(thread_id)
         b1.wait()
-        after_barrier(thread_id)
-        b2.wait()
+        rendezvous(thread_id)
+        b1.wait()
+        ko(thread_id)
 
 
 def before_barrier(thread_id):
@@ -74,10 +95,9 @@ def main():
 
     :return: None
     """
-    NUM_THREADS = 5
+    NUM_THREADS = 30
     b1 = SimpleBarrier(NUM_THREADS)
-    b2 = SimpleBarrier(NUM_THREADS)
-    threads = [Thread(barrier_cycle_example, b1, b2, i) for i in range(0, NUM_THREADS)]
+    threads = [Thread(barrier_cycle_example, b1, i) for i in range(0, NUM_THREADS)]
     # threads = [Thread(barrier_example, b1, i) for i in range(0, NUM_THREADS)]
     [thread.join for thread in threads]
 
