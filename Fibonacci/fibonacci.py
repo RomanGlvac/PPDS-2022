@@ -9,7 +9,7 @@ License:        MIT
 
 from time import sleep
 from fei.ppds import Thread
-from barriertest import get_sleep_interval
+from reusable_barrier.barriertest import get_sleep_interval
 from orderedbarrier import OrderedBarrier
 
 
