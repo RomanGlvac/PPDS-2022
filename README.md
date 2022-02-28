@@ -16,7 +16,7 @@ To achieve this, a dictionary is used, in which pairs of thread_ids and synchron
 ### ./Fibonacci/fibonacci.py
 fibonacci.py serves as a test for the aforementioned barrier. 
 The barrier is used before the actual computation of sequence elements begins, ensuring all threads have data necessary for their operation.
-### ./Fibonacci/activeFibonacci.py
+### ./Fibonacci/active_fibonacci.py
 This file contains an experiment of sorts. 
 It also contains multithreaded calculation of the fibonacci sequence, however it doesn't use any synchronization patterns. 
 It ensures validity of the results by checking a condition in a while loop, which checks whether all required elements have already been calculated.
