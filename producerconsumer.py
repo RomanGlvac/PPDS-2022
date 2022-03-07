@@ -10,6 +10,7 @@ License:        MIT
 from time import sleep
 from random import randint
 from fei.ppds import Thread, print
+from shared import Shared
 
 
 def producer(shared):
@@ -45,23 +46,29 @@ def consumer(shared):
         shared.mutex.lock()
         sleep(randint(1, 10) / 50)
         shared.mutex.unlock()
+        shared.free.signal()
         print("CONSUMER THREAD")
         sleep(randint(1, 10) / 10)
 
 
 def main():
-    for i in range(10):
-        # storage = Shared(10)
-        N_CONSUMERS = 5
-        N_PRODUCERS = 10
-        # consumers = [Thread(consumer, storage) for _ in range(N_CONSUMERS)]
-        # producers = [Thread(producer, storage) for _ in range(N_PRODUCERS)]
+    for j in [10, 20, 30, 40]:
+        for i in [10, 20, 30, 40]:
+            N_CONSUMERS = j
+            N_PRODUCERS = i
+            STORAGE_SIZE = 10
 
-        sleep(1)
-        # storage.finished = True
-        # storage.items.signal(100)
-        # storage.free.signal(100)
-        # [thread.join() for thread in consumers + producers]
+            storage = Shared(STORAGE_SIZE)
+            consumers = [Thread(consumer, storage) for _ in range(N_CONSUMERS)]
+            producers = [Thread(producer, storage) for _ in range(N_PRODUCERS)]
+
+            sleep(1)
+            print("main thread end")
+
+            storage.finished = True
+            storage.items.signal(100)
+            storage.free.signal(100)
+            [thread.join() for thread in consumers + producers]
 
 
 if __name__ == "__main__":
