@@ -20,7 +20,7 @@ These are used within shared.py and barrier.py. shared.py contains the Shared cl
 barrier.py, as the name implies, contains an implementation of a barrier, which is used to make sure that savages start 
 eating dinner at the same time, and also to ensure that all cooks are ready when they are notified by one of the savages.
 
-##Pseudocode
+## Pseudocode
 ```
 def main():
     shared = Shared(0)
@@ -79,5 +79,5 @@ def cook(cook_id, shared, barrier):
         shared.cook_mutex.unlock()
 ```
 
-###Disclaimer
+### Disclaimer
 No missionaries were harmed, hurt or harassed during the simulation.
