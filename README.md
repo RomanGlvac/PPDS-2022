@@ -1,6 +1,7 @@
-# PPDS-2022
-Repository for the PPDS course at FEI STU.
+# 07
+main.py contains a very simple showcase of the usage of generator objects. Each of the three 
+generators waits until the dispatcher function provides a randomly generated integer before performing
+a simple divisibility test. 
 
-Each branch contains a solution to one week's seminar's problems. 
-
-A list of all problems can be found [here](https://uim.fei.stuba.sk/predmet/i-ppds/), in tab 'Cvičenia'.
+Before actually sending any values, the dispatcher first calls next() on all supplied generators to 
+get them into a state where they are waiting for a value to be provided. 
