@@ -31,7 +31,7 @@ def main():
     start = time.time()
 
     for i in range(repetitions):
-        do_stuff(lower_bound + randint(1_000_000, 100_000_000))
+        do_stuff(lower_bound + randint(10, 100))
 
     end = time.time()
     print(f"That took {end - start} seconds.")
